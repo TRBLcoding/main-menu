@@ -1,1 +1,7 @@
 .env
+# Ignore standard Vite build output
+dist
+dist-ssr
+
+# ... BUT allow the one we are putting in the Home Assistant folder
+!ha-addon/dist
