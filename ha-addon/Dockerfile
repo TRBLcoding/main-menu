@@ -4,13 +4,18 @@ ARG BUILD_FROM=ghcr.io/home-assistant/alpine-base:latest
 FROM node:20-alpine AS frontend-builder
 WORKDIR /app
 
-# Install git to download your source code
-RUN apk add --no-cache git
-
-# Clone your repository to get the latest React code
-RUN git clone https://github.com/TRBLcoding/main-menu.git .
-
+# Copy package files and install dependencies first (optimized for caching)
+COPY ../package*.json ./
 RUN npm ci
+
+# Copy the rest of your React source code from the root directory
+COPY ../src ./src
+COPY ../index.html ./
+COPY ../vite.config.js ./ 
+COPY ../postcss.config.js ./
+COPY ../tailwind.config.js ./
+
+# Build your Vite app into the /app/dist folder
 RUN npm run build 
 
 # --- STAGE 2: Build the Final Home Assistant Add-on ---
@@ -27,7 +32,7 @@ RUN wget https://github.com/pocketbase/pocketbase/releases/download/v${PB_VERSIO
 
 WORKDIR /app
 
-# Copy the built React app from Stage 1
+# Copy the built React app from Stage 1 into PocketBase's public folder
 COPY --from=frontend-builder /app/dist ./mainmenu_public/
 
 # Copy your startup script
