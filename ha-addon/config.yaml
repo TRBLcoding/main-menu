@@ -1,6 +1,6 @@
 name: "Main-menu"
 description: "AI-powered recipe manager with PocketBase"
-version: "1.0.3"
+version: "1.0.4"
 slug: "main-menu-app"
 arch:
   - aarch64

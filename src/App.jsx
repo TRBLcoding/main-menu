@@ -4,7 +4,7 @@ import { GoogleGenerativeAI, SchemaType } from '@google/generative-ai';
 import { Search, Plus, Clock, Users, ChefHat, X, Loader2, Trash2, Wand2, PenLine, ImagePlus, Edit2 } from 'lucide-react';
 import imageCompression from 'browser-image-compression';
 
-const genAI = new GoogleGenerativeAI(window.HA_CONFIG.VITE_GEMINI_API_KEY);
+const genAI = new GoogleGenerativeAI(window.HA_CONFIG.GEMINI_API_KEY);
 
 const emptyManualRecipe = {
   title: '',
@@ -54,16 +54,17 @@ export default function App() {
     async function authenticateAndFetch() {
       setIsLoading(true);
       try {
-        const email = window.HA_CONFIG.VITE_AUTO_LOGIN_EMAIL;
-        const password = window.HA_CONFIG.VITE_AUTO_LOGIN_PASSWORD;
-        
-        // Fix 1: Voeg requestKey toe aan de login
-        await pb.admins.authWithPassword(email, password, { requestKey: null });
-        
+        // 1. Remove VITE_ prefix to match window.HA_CONFIG created in run.sh
+        const email = window.HA_CONFIG.AUTO_LOGIN_EMAIL;
+        const password = window.HA_CONFIG.AUTO_LOGIN_PASSWORD;
+
+        // 2. Use _superusers collection for PocketBase v0.23+
+        await pb.collection('_superusers').authWithPassword(email, password, { requestKey: null });
+
         await fetchRecipes();
       } catch (error) {
         console.error("Auto-login failed:", error.message);
-        alert("Login Failed. Check your PocketBase Admin credentials.");
+        alert("Login Failed. Check your PocketBase Superuser credentials in Home Assistant.");
         setIsLoading(false);
       }
     }
