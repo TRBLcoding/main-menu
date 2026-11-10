@@ -1,6 +1,5 @@
-# Use the correct Home Assistant base image
-ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base:latest
-FROM $BUILD_FROM
+# Hardcode the correct base image directly
+FROM ghcr.io/home-assistant/amd64-base:latest
 
 RUN apk add --no-cache unzip wget libc6-compat
 
