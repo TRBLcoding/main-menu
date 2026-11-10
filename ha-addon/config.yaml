@@ -1,7 +1,8 @@
 name: "Main-menu"
 description: "AI-powered recipe manager with PocketBase"
-version: "1.0.5"
+version: "1.0.6"
 slug: "main-menu-app"
+icon: "mdi:chef-hat"
 arch:
   - aarch64
   - amd64
