@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/home-assistant/alpine-base:latest
+ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base:latest
 
 # --- STAGE 1: Build the React App ---
 FROM node:20-alpine AS frontend-builder
