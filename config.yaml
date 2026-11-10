@@ -1,0 +1,22 @@
+name: "Main-menu"
+description: "AI-powered recipe manager with PocketBase"
+version: "1.0.0"
+slug: "main-menu-app"
+arch:
+  - aarch64
+  - amd64
+init: false
+map:
+  - data:rw
+ports:
+  8099/tcp: 8099
+# DEFAULT VALUES
+options:
+  gemini_api_key: ""
+  auto_login_email: "admin@mainmenu.local"
+  auto_login_password: ""
+# UI INPUT TYPES
+schema:
+  gemini_api_key: "password"
+  auto_login_email: "email"
+  auto_login_password: "password"

@@ -1,0 +1,8 @@
+version: "3.7"
+services:
+  pocketbase:
+    image: ghcr.io/muchobits/pocketbase:latest
+    ports:
+      - "8090:8090"
+    volumes:
+      - ./pb_data:/pb_data
