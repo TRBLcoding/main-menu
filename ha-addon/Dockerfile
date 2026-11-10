@@ -3,9 +3,10 @@ FROM ghcr.io/home-assistant/amd64-base:latest
 
 RUN apk add --no-cache unzip wget libc6-compat
 
-# Download PocketBase
-ARG PB_VERSION=0.22.25
-RUN wget https://github.com/pocketbase/pocketbase/releases/download/v${PB_VERSION}/pocketbase_${PB_VERSION}_linux_amd64.zip \
+# Fetch latest pocketbase
+RUN LATEST_TAG=$(curl -s https://api.github.com/repos/pocketbase/pocketbase/releases/latest | jq -r '.tag_name') \
+    && PB_VERSION=${LATEST_TAG#v} \
+    && wget https://github.com/pocketbase/pocketbase/releases/download/${LATEST_TAG}/pocketbase_${PB_VERSION}_linux_amd64.zip \
     && unzip pocketbase_${PB_VERSION}_linux_amd64.zip \
     && chmod +x pocketbase \
     && mv pocketbase /usr/local/bin/main-menu-pocketbase \
