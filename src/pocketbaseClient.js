@@ -1,7 +1,15 @@
 import PocketBase from 'pocketbase';
 
-// // Point this to your PocketBase server URL (localhost during dev, or your HA IP)
-// export const pb = new PocketBase(import.meta.env.VITE_POCKETBASE_URL || 'http://127.0.0.1:8090'); //17191
+// Dynamically resolve base URL for Home Assistant Ingress subpaths
+const getBasePath = () => {
+  let path = window.location.pathname;
+  if (path.endsWith('index.html')) {
+    path = path.substring(0, path.lastIndexOf('/') + 1);
+  }
+  if (!path.endsWith('/')) {
+    path += '/';
+  }
+  return path;
+};
 
-// Passing '/' automatically uses the current host and port
-export const pb = new PocketBase('/');
+export const pb = new PocketBase(getBasePath());
