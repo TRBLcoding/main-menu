@@ -1,6 +1,6 @@
 name: "Main-menu"
 description: "AI-powered recipe manager with PocketBase"
-version: "1.0.4"
+version: "1.0.5"
 slug: "main-menu-app"
 arch:
   - aarch64
@@ -10,6 +10,10 @@ map:
   - data:rw
 ports:
   8099/tcp: 8099
+ingress: true
+ingress_port: 8099
+panel_icon: "mdi:chef-hat"
+panel_title: "Main Menu"
 # DEFAULT VALUES
 options:
   gemini_api_key: ""
