@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { pb } from './pocketbaseClient'; // Changed import
+import { pb } from './pocketbaseClient';
 import { GoogleGenerativeAI, SchemaType } from '@google/generative-ai';
 import { Search, Plus, Clock, Users, ChefHat, X, Loader2, Trash2, Wand2, PenLine, ImagePlus, Edit2 } from 'lucide-react';
 import imageCompression from 'browser-image-compression';
